@@ -1,5 +1,8 @@
 import './App.css'
 import { useState } from 'react';
+import { Controls } from './Controls';
+
+
 const ANNI_FRONT = require('./img/Visitenkarte_Anni_DE_Front.jpg');
 const LUPE = require('./img/lupe.png')
 const VISIT_KARTE_BACK = require('./img/Visitenkarte_Alex_DE_Rückseite.jpg')
@@ -17,12 +20,13 @@ const SLIDE_IMAGES = [
         <img src={LUPE} className="lupe" />,
         <img src={IMG_2} className="thumbnail_2"/>,
     ],
-    [
-        <img src={IMG_1} className="thumbnail_1"/>,
-        <img src={LUPE} className="lupe" />,
-        <img src={ANNI_FRONT} className="thumbnail_2"/>,
-    ]
+    // [
+    //     <img src={IMG_1} className="thumbnail_1"/>,
+    //     <img src={LUPE} className="lupe" />,
+    //     <img src={ANNI_FRONT} className="thumbnail_2"/>,
+    // ]
 ]
+// debugger
 const NUMBER_OF_IMAGES = SLIDE_IMAGES.length;
 
 const App = () => {
@@ -33,24 +37,17 @@ const App = () => {
      <div className="wrapper_sitecontent_all">
         <div className="wrapper_slider_all card-container">
             <div className="card">
-               {SLIDE_IMAGES.filter((images, i) => i === currentSlide)}
+               {SLIDE_IMAGES.filter((images, index) => {
+            //    console.log('images', images)
+            //    console.log('currentSlide', currentSlide)
+            //    console.log('index', index)
+              return index === currentSlide
+            })
+            }
             </div>
         </div>
 
-        <div className="controls">
-            <div 
-                onClick={() => setCurrentSlide(currentSlide === 0 ? NUMBER_OF_IMAGES - 1 : currentSlide - 1) }
-                className="left-arrow prev"
-            >
-                <div className="left-arrow-icon" />
-            </div>
-            <div 
-                onClick={() => setCurrentSlide(currentSlide === NUMBER_OF_IMAGES - 1 ? 0 : currentSlide + 1) } 
-                className="right-arrow next"
-            >
-                <div className="right-arrow-icon" />
-            </div>
-        </div>
+       <Controls currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} NUMBER_OF_IMAGES={NUMBER_OF_IMAGES}/>
 
 
             {/* <div className="hidden grey_lightbox_backgr_one">
